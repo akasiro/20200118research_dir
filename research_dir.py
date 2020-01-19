@@ -4,12 +4,19 @@
 import os,sys
 
 class research_dir():
-    def __init__(self,proj_name):
+    def __init__(self,proj_name,path=None):
         self.proj_name = proj_name
+        if path:
+            self.proj_path = path
+        else:
+            self.proj_path = os.path.join(os.path.abspath(os.path.join(os.path.abspath(os.path.dirname('README.md')),'..')),proj_name)
         
         self.path_name_book = self.create_path_name_book()
-        if not os.path.exists(proj_name):
-            os.mkdir(proj_name)
+        
+        if not os.path.exists(self.proj_path):
+            os.mkdir(self.proj_path)
+        print('project path: {}'.format(self.proj_path))
+            
     def create_path_name_book(self):
         '''
         create name book level by level
@@ -123,10 +130,11 @@ class research_dir():
         else:
             path_name_book = self.path_name_book
         for path_l1,v1 in path_name_book.items():
-            if not os.path.exists(os.path.join(self.proj_name,path_l1)):
-                os.mkdir(os.path.join(self.proj_name,path_l1))
-            self.create_subpath(path_dict=v1, parent_path_l0=os.path.join(self.proj_name,path_l1))
-                            
+            if not os.path.exists(os.path.join(self.proj_path,path_l1)):
+                os.mkdir(os.path.join(self.proj_path,path_l1))
+            self.create_subpath(path_dict=v1, parent_path_l0=os.path.join(self.proj_path,path_l1))
+        self.show_dir(self.proj_path)
+        
     def create_subpath(self, path_dict, parent_path_l0):
         '''
         sub function used in create path
@@ -142,7 +150,25 @@ class research_dir():
                     self.create_subpath(path_dict=v1, parent_path_l0=parent_path_l1)
         except:
             pass
-
+        
+    def show_dir(self, path, depth=0):
+        '''
+        print a tree of directory
+        ::param path
+        ::param depth default 0
+        '''
+        if depth:
+            sep = '|   '*(depth-1)+'|---'
+        else:
+            sep = ''
+        print(sep+os.path.split(path)[-1])
+        if os.path.isdir(path):
+            for subpath in os.listdir(path):
+                subpath_full = os.path.join(path,subpath)
+                subdepth = depth+1
+                self.show_dir(subpath_full,subdepth)
+        
+    
 if __name__ == "__main__":
     confirm_proj_name = 'n'
     while confirm_proj_name == 'n':
