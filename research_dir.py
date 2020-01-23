@@ -61,7 +61,7 @@ class research_dir():
             'datasets': {
             'purpose':'datasets',
             'subpath':{
-                'deried':{'purpose':'dataset constructed from original data'},
+                'derived':{'purpose':'dataset constructed from original data'},
                 'source':{'original data without modifications'}
             }}
         })
@@ -70,7 +70,7 @@ class research_dir():
             'purpose':'completed drafts of paper'}
         })
         path_name_dir['posted']['subpath'].update({
-            'operation': {
+            '{}_operation'.format(self.proj_name): {
             'purpose':'code and log to git',
             'subpath':{
                 'data_clean': {'purpose':'clean data and variable construction'},
@@ -93,7 +93,7 @@ class research_dir():
             'datasets': {
             'purpose':'datasets',
             'subpath':{
-                'deried':{'purpose':'dataset constructed from original data'},
+                'derived':{'purpose':'dataset constructed from original data'},
                 'source':{'original data without modifications'}
             }}
         })
@@ -102,7 +102,7 @@ class research_dir():
             'purpose':'completed drafts of paper'}
         })
         path_name_dir['work']['subpath'].update({
-            'operation': {
+            '{}_operation'.format(self.proj_name): {
             'purpose':'code and log to git',
             'subpath':{
                 'data_clean': {'purpose':'clean data and variable construction'},
